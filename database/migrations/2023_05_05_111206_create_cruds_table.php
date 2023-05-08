@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id')->length(11);
             $table->string('title')->nullable();
-            $table->string('post')->nullable();
-            $table->string('img')->nullable();
+            $table->text('post')->nullable();
+            $table->text('img')->nullable();
             $table->timestamp('due_date')->nullable();
             $table->integer('designer_id')->length(11);
             $table->integer('status')->length(1);
-            $table->string('note')->length(500)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

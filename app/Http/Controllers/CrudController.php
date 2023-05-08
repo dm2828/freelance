@@ -88,7 +88,18 @@ class CrudController extends Controller
         $request->validate([
             'note' => 'required',
             ]);
-        $crud->note =  $request->note;
+
+        $name = "";
+        if($request->hasfile('file'))
+        {
+            $path = "upload/notes/";
+            $name = $request->file('file')->getClientOriginalName();
+            $request->file('file')->move($path, $name); 
+
+            $name = "(file upload : ".$name.")";
+        } 
+        $uname = auth()->user()->username;
+        $crud->note =  $crud->note."   ".$uname." : ".$request->note." ".$name."  ";
 
         $crud->save();
         return redirect('/')->with('success','Updated successfully!');
