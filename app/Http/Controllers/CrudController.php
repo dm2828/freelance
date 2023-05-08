@@ -22,15 +22,17 @@ class CrudController extends Controller
         $cruds = [];
         //check for user query
         
-        if(!empty($user) && $user->role == 0){
+        if(!empty($user) && $user->role == 0){ //client
             $cruds = Crud::select('cruds.*','users.username')->leftJoin('users', function($join) {
                 $join->on('cruds.user_id', '=', 'users.id');
               })->where('user_id',$user->id)->paginate(5);
-
-             
+        } else if(!empty($user) && $user->role == 1) { // designer
+            $cruds = Crud::select('cruds.*','users.username')->leftJoin('users', function($join) {
+                $join->on('cruds.user_id', '=', 'users.id');
+              })->where('designer_id',$user->id)->paginate(5);
         }
 
-        return view('crud.index', compact('cruds'));
+        return view('crud.index', compact('cruds','user'));
     }
 
     public function create()
