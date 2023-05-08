@@ -19,7 +19,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Home Routes
      */
-    Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/', 'CrudController@index')->name('crud.index');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -44,6 +44,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::get('send-mail', [MailController::class, 'index']);
-
+    Route::get('crud/create', [App\Http\Controllers\CrudController::class, 'create']);
+    Route::post('crud', [App\Http\Controllers\CrudController::class, 'store']);
+    Route::get('crud/{crud}/edit', [App\Http\Controllers\CrudController::class, 'edit']);
+    Route::get('crud/{crud}', [App\Http\Controllers\CrudController::class, 'show']);
+    Route::put('crud/{crud}', [App\Http\Controllers\CrudController::class, 'update']);
+    Route::delete('crud/{crud}', [App\Http\Controllers\CrudController::class, 'destroy']);
+    Route::get('crud/submit/{crud}', [App\Http\Controllers\CrudController::class, 'submit']);
 
 });

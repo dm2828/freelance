@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('cruds', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->length(11);
             $table->string('title')->nullable();
-            $table->string('description')->nullable();
-            $table->string('files')->nullable();
+            $table->string('post')->nullable();
+            $table->string('img')->nullable();
             $table->timestamp('due_date')->nullable();
-            $table->integer('assign_to')->length(11);
-            $table->integer('status')->length(1)->default(0);
+            $table->integer('designer_id')->length(11);
+            $table->integer('status')->length(1);
+            $table->string('note')->length(500)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('cruds');
     }
 };
